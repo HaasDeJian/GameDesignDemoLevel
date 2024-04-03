@@ -14,7 +14,7 @@ public class PlayerControllerScript : MonoBehaviour
 
     private Vector2 _look;
     private Vector3 _playerVelocity;
-    private float _movementZ, _lookRotation;
+    private float _movementZ, _movementX, _lookRotation;
     private bool _grounded;
     private const float GravityValue = -9.81f;
 
@@ -45,7 +45,7 @@ public class PlayerControllerScript : MonoBehaviour
             _playerVelocity.y = 0f;
         }
         
-        var movement = transform.TransformDirection(new Vector3(0f, 0f, moveDirection));
+        var movement = transform.TransformDirection(new Vector3(_movementX, 0f, moveDirection));
         
         characterController.Move(movement * (Time.deltaTime * playerSpeed));
 
@@ -85,7 +85,8 @@ public class PlayerControllerScript : MonoBehaviour
     {
         var movementVector = movementValue.Get<Vector2>();
         
-        _movementZ = movementVector.y; 
+        _movementZ = movementVector.y;
+        _movementX = movementVector.x;
     }
     
     private void OnLook(InputValue lookValue)
